@@ -1,0 +1,134 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #eef2f7;
+    animation: pageFade 0.6s ease-in;
+}
+
+/* SIDEBAR (NEW COLOR THEME) */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    background: linear-gradient(180deg, #0f172a, #1e293b);
+    color: white;
+    transition: 0.3s ease;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar h4 {
+    padding: 20px;
+    text-align: center;
+    background: #0b1220;
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* SIDEBAR LINKS */
+.sidebar a {
+    display: block;
+    color: #cbd5e1;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.sidebar a:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-left: 3px solid #3b82f6;
+    color: #ffffff;
+    padding-left: 28px;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    animation: fadeUp 0.5s ease;
+}
+
+/* TOP NAVBAR */
+.topbar {
+    background: #ffffff;
+    padding: 12px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin-left: 250px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* CARD DESIGN */
+.card-box {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.card-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* BUTTONS (MODERN BLUE THEME) */
+.btn-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border: none;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    border: none;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    border: none;
+}
+
+.btn {
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* TABLE */
+table tbody tr:hover {
+    background: #f1f5f9;
+    transform: scale(1.01);
+    transition: 0.2s;
+}
+
+/* ANIMATIONS */
+@keyframes pageFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
