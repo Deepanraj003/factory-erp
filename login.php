@@ -7,7 +7,10 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = md5($_POST['password']);
 
-    $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+    $query = "SELECT * FROM users 
+              WHERE email='$email' 
+              AND password='$password'";
+
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) == 1) {
@@ -23,38 +26,47 @@ if (isset($_POST['login'])) {
         } else {
             header("Location: staff/dashboard.php");
         }
+
+        exit();
     } else {
-        $error = "Invalid login details";
+        $error = "Invalid Email or Password!";
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factory ERP Login</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', sans-serif;
             height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             overflow: hidden;
-
-            /* MATCH DASHBOARD THEME */
-            background: linear-gradient(-45deg, #0f172a, #1e293b, #0b1220, #111827);
+            background: linear-gradient(-45deg,
+                    #0f172a,
+                    #1e293b,
+                    #0b1220,
+                    #111827);
             background-size: 400% 400%;
             animation: bgMove 10s ease infinite;
         }
 
-        /* BACKGROUND ANIMATION */
         @keyframes bgMove {
             0% {
                 background-position: 0% 50%;
@@ -69,25 +81,19 @@ if (isset($_POST['login'])) {
             }
         }
 
-        /* FLOAT SHAPES (UPDATED BLUE THEME) */
+        /* Background Shapes */
         .bg-shapes {
             position: fixed;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
-            overflow: hidden;
             z-index: 0;
         }
 
-        /* RECTANGLES */
-        .rect,
-        .circle {
+        .shape {
             position: absolute;
             animation: floatAnim 12s linear infinite;
         }
 
-        /* BLUE RECTANGLES */
         .rect1 {
             top: 10%;
             left: 15%;
@@ -102,76 +108,55 @@ if (isset($_POST['login'])) {
             left: 10%;
             width: 90px;
             height: 90px;
-            background: rgba(30, 41, 59, 0.6);
+            background: rgba(30, 41, 59, 0.5);
             border: 2px solid rgba(148, 163, 184, 0.15);
         }
 
         .rect3 {
-            top: 40%;
-            left: 80%;
+            top: 35%;
+            right: 10%;
             width: 70px;
             height: 70px;
             background: rgba(59, 130, 246, 0.12);
             border: 2px solid rgba(37, 99, 235, 0.3);
         }
 
-        .rect4 {
-            top: 20%;
-            left: 60%;
-            width: 60px;
-            height: 60px;
-            background: rgba(29, 78, 216, 0.12);
-            border: 2px solid rgba(59, 130, 246, 0.25);
-        }
-
-        .rect5 {
-            top: 80%;
-            left: 70%;
-            width: 50px;
-            height: 50px;
-            background: rgba(15, 23, 42, 0.7);
-            border: 2px solid rgba(148, 163, 184, 0.1);
-        }
-
-        /* CIRCLES */
         .circle1,
         .circle2,
         .circle3 {
             border-radius: 50%;
         }
 
-        /* BLUE CIRCLES */
         .circle1 {
-            top: 15%;
-            left: 45%;
-            width: 50px;
-            height: 50px;
-            background: rgba(37, 99, 235, 0.15);
+            top: 20%;
+            left: 60%;
+            width: 55px;
+            height: 55px;
+            background: rgba(59, 130, 246, 0.12);
             border: 2px solid rgba(59, 130, 246, 0.3);
         }
 
         .circle2 {
-            top: 60%;
-            left: 35%;
+            bottom: 15%;
+            right: 20%;
             width: 70px;
             height: 70px;
-            background: rgba(30, 41, 59, 0.5);
-            border: 2px solid rgba(148, 163, 184, 0.15);
+            background: rgba(30, 41, 59, 0.6);
+            border: 2px solid rgba(148, 163, 184, 0.2);
         }
 
         .circle3 {
-            top: 75%;
-            left: 55%;
-            width: 40px;
-            height: 40px;
-            background: rgba(59, 130, 246, 0.12);
-            border: 2px solid rgba(37, 99, 235, 0.3);
+            top: 60%;
+            left: 35%;
+            width: 45px;
+            height: 45px;
+            background: rgba(37, 99, 235, 0.15);
+            border: 2px solid rgba(59, 130, 246, 0.35);
         }
 
-        /* FLOAT ANIMATION */
         @keyframes floatAnim {
             0% {
-                transform: translateY(0px) rotate(0deg);
+                transform: translateY(0) rotate(0deg);
             }
 
             50% {
@@ -179,30 +164,29 @@ if (isset($_POST['login'])) {
             }
 
             100% {
-                transform: translateY(0px) rotate(360deg);
+                transform: translateY(0) rotate(360deg);
             }
         }
 
-        /* LOGIN CARD (MATCH ERP STYLE) */
+        /* Login Card */
         .login-card {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
+            padding: 35px;
+            border-radius: 18px;
             background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(14px);
-            border-radius: 14px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            position: relative;
-            z-index: 2;
-            animation: fadeInUp 0.8s ease;
-            color: white;
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(148, 163, 184, 0.15);
+            z-index: 10;
+            position: relative;
+            color: white;
+            animation: fadeUp 0.8s ease;
         }
 
-        @keyframes fadeInUp {
+        @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
 
             to {
@@ -213,92 +197,122 @@ if (isset($_POST['login'])) {
 
         .title {
             text-align: center;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #e2e8f0;
+            font-size: 28px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 10px;
         }
 
-        /* INPUT STYLE */
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
         .form-control {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            color: white;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            color: white !important;
+            padding: 14px;
+            border-radius: 10px;
         }
 
         .form-control:focus {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid #3b82f6;
-            box-shadow: none;
+            background: rgba(15, 23, 42, 0.85);
+            border-color: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.25);
             color: white;
         }
 
-        /* BUTTON (MATCH DASHBOARD BUTTONS) */
+        /* Placeholder Fix */
+        .form-control::placeholder {
+            color: #cbd5e1 !important;
+            opacity: 1;
+        }
+
         .btn-login {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            background: linear-gradient(135deg,
+                    #2563eb,
+                    #1d4ed8);
             border: none;
-            transition: 0.3s ease;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: .3s;
         }
 
         .btn-login:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 0 18px rgba(59, 130, 246, 0.45);
         }
 
-        a {
-            text-decoration: none;
+        .register-link {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .register-link a {
             color: #93c5fd;
+            text-decoration: none;
+            font-weight: 500;
         }
 
-        a:hover {
-            color: #bfdbfe;
+        .register-link a:hover {
+            color: #dbeafe;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- BACKGROUND -->
+    <!-- Floating Background -->
     <div class="bg-shapes">
+        <div class="shape rect1"></div>
+        <div class="shape rect2"></div>
+        <div class="shape rect3"></div>
 
-        <!-- RECTANGLES -->
-        <div class="rect rect1"></div>
-        <div class="rect rect2"></div>
-        <div class="rect rect3"></div>
-        <div class="rect rect4"></div>
-        <div class="rect rect5"></div>
-
-        <!-- CIRCLES -->
-        <div class="circle circle1"></div>
-        <div class="circle circle2"></div>
-        <div class="circle circle3"></div>
-
+        <div class="shape circle1"></div>
+        <div class="shape circle2"></div>
+        <div class="shape circle3"></div>
     </div>
 
-    <!-- LOGIN -->
+    <!-- Login Card -->
     <div class="login-card">
 
-        <h3 class="title">Factory ERP Login</h3>
+        <h2 class="title">Factory ERP</h2>
+        <p class="subtitle">Login To Continue</p>
 
         <form method="POST">
 
             <?php if (isset($error)) { ?>
-                <div class="alert alert-danger py-2">
+                <div class="alert alert-danger text-center">
                     <?php echo $error; ?>
                 </div>
             <?php } ?>
 
-            <input type="email" name="email" class="form-control mb-3 p-2" placeholder="Email" required>
+            <input type="email"
+                name="email"
+                class="form-control mb-3"
+                placeholder="Enter Email Address"
+                required>
 
-            <input type="password" name="password" class="form-control mb-3 p-2" placeholder="Password" required>
+            <input type="password"
+                name="password"
+                class="form-control mb-3"
+                placeholder="Enter Password"
+                required>
 
-            <button type="submit" name="login" class="btn btn-login w-100 text-white">
+            <button type="submit"
+                name="login"
+                class="btn btn-login w-100 text-white">
                 Login
             </button>
 
-            <div class="text-center mt-3">
-                <a href="register.php" class="text-white">
-                    Create Account
+            <div class="register-link">
+                <a href="register.php">
+                    Create New Account
                 </a>
             </div>
 

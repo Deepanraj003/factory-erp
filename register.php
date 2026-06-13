@@ -14,6 +14,7 @@ if (isset($_POST['register'])) {
 
     if (mysqli_query($conn, $sql)) {
         header("Location: login.php");
+        exit();
     } else {
         echo "Error: " . mysqli_error($conn);
     }
@@ -21,26 +22,34 @@ if (isset($_POST['register'])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factory ERP Register</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* ===== MATCH LOGIN THEME ===== */
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', sans-serif;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-
             background: linear-gradient(-45deg,
-                    #0f172a, #1e293b, #0b1220, #111827);
+                    #0f172a,
+                    #1e293b,
+                    #0b1220,
+                    #111827);
             background-size: 400% 400%;
             animation: bgMove 10s ease infinite;
         }
@@ -59,7 +68,7 @@ if (isset($_POST['register'])) {
             }
         }
 
-        /* FLOAT BACKGROUND */
+        /* Floating Shapes */
         .bg-shapes {
             position: fixed;
             width: 100%;
@@ -69,8 +78,7 @@ if (isset($_POST['register'])) {
             z-index: 0;
         }
 
-        .rect,
-        .circle {
+        .shape {
             position: absolute;
             animation: floatAnim 12s linear infinite;
         }
@@ -89,65 +97,50 @@ if (isset($_POST['register'])) {
             left: 10%;
             width: 90px;
             height: 90px;
-            background: rgba(30, 41, 59, 0.6);
+            background: rgba(30, 41, 59, 0.5);
             border: 2px solid rgba(148, 163, 184, 0.15);
         }
 
         .rect3 {
-            top: 40%;
-            left: 80%;
+            top: 35%;
+            right: 10%;
             width: 70px;
             height: 70px;
             background: rgba(59, 130, 246, 0.12);
             border: 2px solid rgba(37, 99, 235, 0.3);
         }
 
-        .rect4 {
-            top: 20%;
-            left: 60%;
-            width: 60px;
-            height: 60px;
-            background: rgba(29, 78, 216, 0.12);
-            border: 2px solid rgba(59, 130, 246, 0.25);
-        }
-
-        .rect5 {
-            top: 80%;
-            left: 70%;
-            width: 50px;
-            height: 50px;
-            background: rgba(15, 23, 42, 0.7);
-            border: 2px solid rgba(148, 163, 184, 0.1);
+        .circle1,
+        .circle2,
+        .circle3 {
+            border-radius: 50%;
         }
 
         .circle1 {
-            top: 15%;
-            left: 45%;
-            width: 50px;
-            height: 50px;
-            background: rgba(37, 99, 235, 0.15);
+            top: 20%;
+            left: 60%;
+            width: 55px;
+            height: 55px;
+            background: rgba(59, 130, 246, 0.12);
             border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 50%;
         }
 
         .circle2 {
-            top: 60%;
-            left: 35%;
+            bottom: 15%;
+            right: 20%;
             width: 70px;
             height: 70px;
-            background: rgba(30, 41, 59, 0.5);
-            border: 2px solid rgba(148, 163, 184, 0.15);
-            border-radius: 50%;
+            background: rgba(30, 41, 59, 0.6);
+            border: 2px solid rgba(148, 163, 184, 0.2);
         }
 
         .circle3 {
-            top: 75%;
-            left: 55%;
-            width: 40px;
-            height: 40px;
-            background: rgba(59, 130, 246, 0.12);
-            border: 2px solid rgba(37, 99, 235, 0.3);
-            border-radius: 50%;
+            top: 60%;
+            left: 35%;
+            width: 45px;
+            height: 45px;
+            background: rgba(37, 99, 235, 0.15);
+            border: 2px solid rgba(59, 130, 246, 0.35);
         }
 
         @keyframes floatAnim {
@@ -164,25 +157,25 @@ if (isset($_POST['register'])) {
             }
         }
 
-        /* REGISTER CARD */
+        /* Register Card */
         .register-card {
             width: 100%;
             max-width: 420px;
+            padding: 35px;
+            border-radius: 18px;
             background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(14px);
-            border-radius: 14px;
-            padding: 30px;
-            z-index: 2;
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            z-index: 10;
             position: relative;
             color: white;
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            animation: fadeInUp 0.8s ease;
+            animation: fadeUp 0.8s ease;
         }
 
-        @keyframes fadeInUp {
+        @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
 
             to {
@@ -193,77 +186,125 @@ if (isset($_POST['register'])) {
 
         .title {
             text-align: center;
-            margin-bottom: 20px;
-            color: #e2e8f0;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            font-size: 14px;
         }
 
         .form-control {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            color: white;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            color: white !important;
+            padding: 14px;
+            border-radius: 10px;
         }
 
         .form-control:focus {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid #3b82f6;
-            box-shadow: none;
+            background: rgba(15, 23, 42, 0.85);
+            border-color: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.25);
             color: white;
         }
 
+        /* Placeholder Fix */
+        .form-control::placeholder {
+            color: #cbd5e1 !important;
+            opacity: 1;
+        }
+
         .btn-register {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            background: linear-gradient(135deg,
+                    #2563eb,
+                    #1d4ed8);
             border: none;
-            transition: 0.3s;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: .3s;
         }
 
         .btn-register:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 0 18px rgba(59, 130, 246, 0.45);
         }
 
-        a {
+        .login-link {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .login-link a {
             color: #93c5fd;
             text-decoration: none;
+            font-weight: 500;
         }
 
-        a:hover {
-            color: #bfdbfe;
+        .login-link a:hover {
+            color: #dbeafe;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- BACKGROUND SHAPES -->
+    <!-- Floating Background -->
     <div class="bg-shapes">
-        <div class="rect rect1"></div>
-        <div class="rect rect2"></div>
-        <div class="rect rect3"></div>
-        <div class="rect rect4"></div>
-        <div class="rect rect5"></div>
+        <div class="shape rect1"></div>
+        <div class="shape rect2"></div>
+        <div class="shape rect3"></div>
 
-        <div class="circle circle1"></div>
-        <div class="circle circle2"></div>
-        <div class="circle circle3"></div>
+        <div class="shape circle1"></div>
+        <div class="shape circle2"></div>
+        <div class="shape circle3"></div>
     </div>
 
-    <!-- REGISTER CARD -->
+    <!-- Register Card -->
     <div class="register-card">
-        <h3 class="title">Factory ERP Register</h3>
+
+        <h2 class="title">Factory ERP</h2>
+        <p class="subtitle">Create Your Staff Account</p>
 
         <form method="POST">
-            <input type="text" name="name" class="form-control mb-3 p-2" placeholder="Name" required>
-            <input type="email" name="email" class="form-control mb-3 p-2" placeholder="Email" required>
-            <input type="password" name="password" class="form-control mb-3 p-2" placeholder="Password" required>
 
-            <button type="submit" name="register" class="btn btn-register w-100 text-white">
+            <input type="text"
+                name="name"
+                class="form-control mb-3"
+                placeholder="Enter Full Name"
+                required>
+
+            <input type="email"
+                name="email"
+                class="form-control mb-3"
+                placeholder="Enter Email Address"
+                required>
+
+            <input type="password"
+                name="password"
+                class="form-control mb-3"
+                placeholder="Enter Password"
+                required>
+
+            <button type="submit"
+                name="register"
+                class="btn btn-register w-100 text-white">
                 Register
             </button>
 
-            <div class="text-center mt-3">
-                <a href="login.php">Already have account? Login</a>
+            <div class="login-link">
+                <a href="login.php">
+                    Already have an account? Login
+                </a>
             </div>
+
         </form>
     </div>
 
