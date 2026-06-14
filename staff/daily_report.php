@@ -10,7 +10,9 @@
 
         <div class="card-box mb-3">
 
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportModal">
+            <button class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#reportModal">
                 + Submit Report
             </button>
 
@@ -37,23 +39,58 @@
 </div>
 
 <!-- REPORT MODAL -->
-<div class="modal fade" id="reportModal">
+<div class="modal fade" id="reportModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
 
+            <!-- Header -->
             <div class="modal-header">
-                <h5>Submit Report</h5>
+                <h5 class="modal-title text-dark">
+                    Submit Report
+                </h5>
+
+                <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
             </div>
 
+            <!-- Body -->
             <div class="modal-body">
 
-                <input type="text" id="title" class="form-control mb-2" placeholder="Work Title">
-                <textarea id="description" class="form-control mb-2" placeholder="Description"></textarea>
+                <input type="text"
+                    id="title"
+                    class="form-control mb-3"
+                    placeholder="Work Title">
+
+                <textarea id="description"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Description"></textarea>
+
+                <!-- Error Message -->
+                <div id="errorMsg"
+                    class="text-danger mt-2"
+                    style="display:none;">
+                </div>
 
             </div>
 
+            <!-- Footer -->
             <div class="modal-footer">
-                <button class="btn btn-success" onclick="submitReport()">Submit</button>
+
+                <button type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+                    Close
+                </button>
+
+                <button type="button"
+                    class="btn btn-success"
+                    onclick="submitReport()">
+                    Submit
+                </button>
+
             </div>
 
         </div>
@@ -65,9 +102,38 @@
 
     function submitReport() {
 
+        let title =
+            document.getElementById("title")
+            .value.trim();
+
+        let description =
+            document.getElementById("description")
+            .value.trim();
+
+        let errorMsg =
+            document.getElementById("errorMsg");
+
+        // Validation
+        if (title === "") {
+            errorMsg.style.display = "block";
+            errorMsg.innerHTML =
+                "Work Title is required!";
+            return;
+        }
+
+        if (description === "") {
+            errorMsg.style.display = "block";
+            errorMsg.innerHTML =
+                "Description is required!";
+            return;
+        }
+
+        errorMsg.style.display = "none";
+
         let formData = new FormData();
-        formData.append("title", document.getElementById("title").value);
-        formData.append("description", document.getElementById("description").value);
+
+        formData.append("title", title);
+        formData.append("description", description);
 
         fetch("report_action.php?action=add", {
                 method: "POST",
@@ -75,17 +141,45 @@
             })
             .then(res => res.text())
             .then(data => {
+
                 alert(data);
+
+                // Reload reports
                 loadReports();
+
+                // Clear form
+                document.getElementById("title")
+                    .value = "";
+
+                document.getElementById(
+                        "description")
+                    .value = "";
+
+                // Close modal automatically
+                let modal =
+                    bootstrap.Modal.getInstance(
+                        document.getElementById(
+                            'reportModal'
+                        )
+                    );
+
+                modal.hide();
             });
     }
 
     function loadReports() {
 
-        fetch("report_action.php?action=read")
+        fetch(
+                "report_action.php?action=read"
+            )
             .then(res => res.text())
             .then(data => {
-                document.getElementById("reportTable").innerHTML = data;
+
+                document
+                    .getElementById(
+                        "reportTable"
+                    )
+                    .innerHTML = data;
             });
     }
 </script>

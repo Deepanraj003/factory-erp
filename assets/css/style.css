@@ -1,127 +1,153 @@
+/* ==========================
+   BODY WITH BACKGROUND IMAGE + ANIMATION
+========================== */
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: #eef2f7;
-    animation: pageFade 0.6s ease-in;
-}
 
-/* SIDEBAR (NEW COLOR THEME) */
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-    background: linear-gradient(180deg, #0f172a, #1e293b);
-    color: white;
-    transition: 0.3s ease;
-    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
-}
+    background:
+        linear-gradient(rgba(5, 8, 22, 0.65),
+            rgba(15, 23, 42, 0.80)),
+        url(../img/imageForEntry24-JSC.webp);
 
-.sidebar h4 {
-    padding: 20px;
-    text-align: center;
-    background: #0b1220;
-    margin: 0;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 
-/* SIDEBAR LINKS */
-.sidebar a {
-    display: block;
-    color: #cbd5e1;
-    padding: 12px 20px;
-    text-decoration: none;
-    border-left: 3px solid transparent;
-    transition: all 0.3s ease;
+    overflow-x: hidden;
     position: relative;
+
+    color: #e2e8f0;
+    min-height: 100vh;
+
+    /* 🌟 page fade-in */
+    animation: pageFade 0.8s ease-in-out;
 }
 
-.sidebar a:hover {
-    background: rgba(59, 130, 246, 0.15);
-    border-left: 3px solid #3b82f6;
-    color: #ffffff;
-    padding-left: 28px;
-}
-
-/* MAIN CONTENT */
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-    animation: fadeUp 0.5s ease;
-}
-
-/* TOP NAVBAR */
-.topbar {
-    background: #ffffff;
-    padding: 12px 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    margin-left: 250px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-/* CARD DESIGN */
-.card-box {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease;
-    border: 1px solid #e5e7eb;
-}
-
-.card-box:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-}
-
-/* BUTTONS (MODERN BLUE THEME) */
-.btn-primary {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    border: none;
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #16a34a, #15803d);
-    border: none;
-}
-
-.btn-danger {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
-    border: none;
-}
-
-.btn {
-    border-radius: 8px;
-    transition: all 0.25s ease;
-}
-
-.btn:hover {
-    transform: scale(1.05);
-    filter: brightness(1.1);
-}
-
-/* TABLE */
-table tbody tr:hover {
-    background: #f1f5f9;
-    transform: scale(1.01);
-    transition: 0.2s;
-}
-
-/* ANIMATIONS */
+/* ==========================
+   PAGE LOAD ANIMATION
+========================== */
 @keyframes pageFade {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: scale(1.02);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1);
     }
 }
 
-@keyframes fadeUp {
+/* ==========================
+   REMOVE ANIMATION (if old exists)
+========================== */
+.animated-bg {
+    display: none;
+}
+
+/* ==========================
+   GLASS SIDEBAR + SLIDE IN
+========================== */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+
+    background: #5e68f591;
+    backdrop-filter: blur(25px);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.10);
+
+    /* 🚀 slide animation */
+    animation: sidebarSlide 0.7s ease;
+}
+
+@keyframes sidebarSlide {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.sidebar h4 {
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.sidebar a {
+    color: #f1f5f9;
+    padding: 14px 20px;
+    display: block;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(8px);
+    border-left: 4px solid #00ffcc;
+    color: #00ffcc;
+}
+
+/* ==========================
+   TOPBAR
+========================== */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 9999 !important;
+
+    margin-left: 250px;
+
+    background: rgba(255, 255, 255, 0.623);
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    color: #e2e8f0;
+
+    animation: topbarDrop 0.6s ease;
+}
+
+@keyframes topbarDrop {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ==========================
+   MAIN CONTENT
+========================== */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+
+    animation: contentFade 0.8s ease;
+}
+
+@keyframes contentFade {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -131,4 +157,276 @@ table tbody tr:hover {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ==========================
+   GLASS CARDS + FLOAT EFFECT
+========================== */
+.card,
+.card-box {
+    padding: 20px;
+
+    background: #3747d53b !important;
+
+    backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 24px;
+
+    transition: all 0.4s ease;
+
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+
+    color: #e2e8f0;
+
+    /* 🌊 floating animation */
+    animation: cardFloat 6s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.card:hover,
+.card-box:hover {
+
+    transform: translateY(-10px) scale(1.02);
+
+    /* 🌈 soft color glow overlay */
+    background: rgba(0, 255, 204, 0.08) !important;
+
+    border: 1px solid rgba(0, 255, 204, 0.35);
+
+    box-shadow:
+        0 10px 25px rgba(0, 255, 204, 0.15),
+        0 0 40px rgba(0, 255, 204, 0.10);
+
+    color: #ffffff;
+
+    transition: all 0.3s ease;
+}
+
+@keyframes cardFloat {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 0 45px rgba(0, 255, 204, 0.25);
+}
+
+/* ==========================
+   TABLE
+========================== */
+.table {
+    color: #e2e8f0;
+}
+
+.table-dark {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================
+   BUTTON ANIMATION
+========================== */
+.btn {
+    border-radius: 14px;
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(0, 255, 204, 0.15);
+}
+
+/* ==========================
+   DROPDOWN
+========================== */
+.dropdown-menu {
+    z-index: 99999 !important;
+}
+
+/* ==========================
+   NOTIFICATION POPUP
+========================== */
+.notification-dropdown {
+
+    width: 380px;
+    max-height: 420px;
+    overflow-y: auto;
+
+    border-radius: 20px;
+
+    z-index: 99999 !important;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+
+    color: #0f172a;
+}
+
+/* CUSTOM SCROLLBAR */
+.notification-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-dropdown::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 10px;
+}
+
+/* HOVER EFFECT */
+.notification-dropdown .dropdown-item:hover {
+    background: rgba(59, 130, 246, 0.08);
+    transition: 0.3s ease;
+}
+
+.input-icon {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-icon i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: rgba(226, 232, 240, 0.7);
+    font-size: 14px;
+}
+
+.input-icon .form-control,
+.input-icon .form-select {
+    padding-left: 42px;
+}
+
+.input-icon .form-control:focus+i,
+.input-icon:focus-within i {
+    color: #00ffcc;
+}
+
+/* ==========================
+   CLEAN BOTTOM BORDER INPUTS
+========================== */
+.form-control,
+.form-select,
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="file"] {
+
+    background: transparent !important;
+
+    border: none !important;
+    border-bottom: 2px solid rgba(226, 232, 240, 0.25) !important;
+
+    border-radius: 0 !important;
+
+    color: #e2e8f0 !important;
+
+    padding: 10px 5px;
+
+    outline: none;
+
+    transition: all 0.3s ease;
+}
+
+/* ==========================
+   FOCUS EFFECT (NEON BOTTOM LINE)
+========================== */
+.form-control:focus,
+.form-select:focus,
+textarea:focus {
+
+    border-bottom: 2px solid #00ffcc !important;
+
+    box-shadow: none !important;
+
+    background: transparent !important;
+
+    color: #ffffff !important;
+}
+
+/* ==========================
+   LABEL STYLE
+========================== */
+label {
+    color: #cbd5e1;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+/* ==========================
+   PLACEHOLDER STYLE
+========================== */
+::placeholder {
+    color: rgba(226, 232, 240, 0.5);
+}
+
+/* ==========================
+   SELECT CLEAN LOOK
+========================== */
+.form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* ==========================
+   FILE INPUT CLEAN STYLE
+========================== */
+input[type="file"] {
+    border-bottom: 2px solid rgba(226, 232, 240, 0.25);
+    padding-left: 0;
+}
+
+.modal {
+    z-index: 999999 !important;
+}
+
+.modal-backdrop {
+    z-index: 999990 !important;
+}
+
+.sidebar,
+.topbar {
+    z-index: 10 !important;
+}
+
+/* ==========================
+   MODAL INPUT PLACEHOLDER COLOR
+========================== */
+.modal input::placeholder,
+.modal textarea::placeholder {
+    color: rgba(15, 23, 42, 0.7) !important;
+    /* dark slate */
+    font-weight: 500;
+}
+
+/* optional: focus placeholder fade */
+.modal input:focus::placeholder,
+.modal textarea:focus::placeholder {
+    color: rgba(15, 23, 42, 0.3) !important;
+}
+
+.modal .form-control {
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+}
+
+.modal .form-control:focus {
+    border-color: #00ffcc;
+    box-shadow: 0 0 0 3px rgba(0, 255, 204, 0.15);
 }

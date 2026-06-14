@@ -44,7 +44,7 @@
 
             <!-- HEADER -->
             <div class="modal-header">
-                <h5 class="modal-title">Apply Leave</h5>
+                <h5 class="modal-title text-dark">Apply Leave</h5>
 
                 <!-- CLOSE BUTTON -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
